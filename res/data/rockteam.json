@@ -1,0 +1,81 @@
+{"rock":[
+	{"rock1":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rock.png" , "direction":"up"},
+		{"x":50, "y":350 , "w":108 , "h":239, "img":"rock.png" , "direction":"up"}	
+	]},
+	
+	{"rock2":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockDown.png" , "direction":"down"},
+		{"x":60, "y":-90 , "w":108 , "h":239, "img":"rockDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rock.png" , "direction":"up"}		
+	
+	]},
+	
+	{"rock3":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rock.png" , "direction":"up"}	
+	]}
+
+],
+"rockGrass":[
+	{"rock1":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockGrassDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockGrass.png" , "direction":"up"},
+		{"x":50, "y":350 , "w":108 , "h":239, "img":"rockGrass.png" , "direction":"up"}	
+	]},
+	
+	{"rock2":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockGrassDown.png" , "direction":"down"},
+		{"x":60, "y":-90 , "w":108 , "h":239, "img":"rockGrassDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockGrass.png" , "direction":"up"}		
+	
+	]},
+	
+	{"rock3":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockGrassDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockGrass.png" , "direction":"up"}	
+	]}
+
+],
+"rockIce":[
+	{"rock1":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockIceDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockIce.png" , "direction":"up"},
+		{"x":50, "y":350 , "w":108 , "h":239, "img":"rockIce.png" , "direction":"up"}	
+	]},
+	
+	{"rock2":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockIceDown.png" , "direction":"down"},
+		{"x":60, "y":-90 , "w":108 , "h":239, "img":"rockIceDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockIce.png" , "direction":"up"}		
+	
+	]},
+	
+	{"rock3":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockIceDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockIce.png" , "direction":"up"}	
+	]}
+],
+"rockSnow":[
+	{"rock1":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockSnowDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockSnow.png" , "direction":"up"},
+		{"x":50, "y":350 , "w":108 , "h":239, "img":"rockSnow.png" , "direction":"up"}	
+	]},
+	
+	{"rock2":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockSnowDown.png" , "direction":"down"},
+		{"x":60, "y":-90 , "w":108 , "h":239, "img":"rockSnowDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockSnow.png" , "direction":"up"}		
+	
+	]},
+	
+	{"rock3":[
+		{"x":0, "y":-120 , "w":108 , "h":239, "img":"rockSnowDown.png" , "direction":"down"},
+		{"x":0, "y":300 , "w":108 , "h":239, "img":"rockSnow.png" , "direction":"up"}	
+	]}
+
+]
+
+}
