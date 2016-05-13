@@ -45,7 +45,11 @@ define(function(require,exports,module){
            Body.translate(body,offset);
           
            console.log(body.position);
-           body.render.sprite.texture = setImg(type);
+           body._display = Object.create(Sprite); 
+           body._display.loadImage(setImg(type));
+           
+           
+           //body.render.sprite.texture = setImg(type);
            body.collisionFilter.category = collisionCategory.GROUND;
            body.collisionFilter.mask = collisionCategory.PLAYER;
            Body.setStatic(body,true);

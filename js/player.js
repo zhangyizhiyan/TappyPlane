@@ -50,8 +50,11 @@ define(function(require,exports,module){
         //offset = Vector.add(offset, Vector.create(x, y));
         //Body.translate(body, offset);
         
-        /**图集动画需修改matter-RenderLaya.js */
-        body.render.sprite.texture = setUrls(type);
+        body._display = Object.create(animation);
+        body._display.loadImages(setUrls(type));
+        body._display.interval = 400;
+        body._display.play();
+        //body.render.sprite.texture = setUrls(type);
         
         body.collisionFilter.category = collisionCategory.PLAYER;
         body.collisionFilter.mask =  collisionCategory.GROUND | 

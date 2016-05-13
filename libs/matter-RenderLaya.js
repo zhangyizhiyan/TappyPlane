@@ -213,21 +213,22 @@ var LayaRender = {};
         }
 
         var spInfo = bodyRender.sprite;
-        var sp = body.sprite;
-        if (bodyRender.sprite && bodyRender.sprite.texture)
+        //var sp = body.sprite;
+        var sp = body._display;
+        //改为设置了body._display属性则使用自定义渲染
+        //if (bodyRender.sprite && bodyRender.sprite.texture)
+        if(sp)
         {
             // initialize body sprite if not existing
-            if (!sp)
+            if (!body._isInitSprite)
             {
-               // 添加图集支持 
-                if (Matter.Common.isArray(bodyRender.sprite.texture)) {
-                    sp = body.sprite = createBodyAnimation(spInfo.xOffset, spInfo.yOffset);
-                    sp.loadImages(spInfo.texture);
-                }else{
-                    sp = body.sprite = createBodySprite(spInfo.xOffset, spInfo.yOffset);
-                    sp.loadImage(spInfo.texture);
-                }
-                
+                sp = body._display;
+                sp.pivot(spInfo.xOffset, spInfo.yOffset);
+                sp.pos(-9999, -9999);
+                spriteCon.addChild(sp);
+                //sp = createBodySprite(spInfo.xOffset, spInfo.yOffset);
+               // sp.loadImage(spInfo.texture);
+                body._isInitSprite = true;
             }
 
             sp.scale(spInfo.xScale, spInfo.yScale);
@@ -320,7 +321,7 @@ var LayaRender = {};
             constraint.render.lineWidth);
     };
 
-    function createBodySprite(xOffset, yOffset)
+ /**    function createBodySprite(xOffset, yOffset)
     {
         var sp = new Laya.Sprite();
 
@@ -329,14 +330,5 @@ var LayaRender = {};
         spriteCon.addChild(sp);
 
         return sp;
-    }
-    function createBodyAnimation(xOffset, yOffset) {
-        var sp = new Laya.Animation();
-
-        sp.pivot(xOffset, yOffset);
-        sp.pos(-9999, -9999);
-        spriteCon.addChild(sp);
-
-        return sp;
-    }
+    }*/
 })();
