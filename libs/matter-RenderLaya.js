@@ -206,16 +206,19 @@ var LayaRender = {};
     {
         var render = engine.render,
             bodyRender = body.render;
-
-        if (!bodyRender.visible)
-        {
-            return;
-        }
-
         var spInfo = bodyRender.sprite;
         //var sp = body.sprite;
         var sp = body._display;
         //改为设置了body._display属性则使用自定义渲染
+
+        if (!bodyRender.visible)
+        {
+            //隐藏图片
+            if(sp){sp.visible = false}
+            return;
+        }
+
+       
         //if (bodyRender.sprite && bodyRender.sprite.texture)
         if(sp)
         {

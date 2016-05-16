@@ -1,9 +1,11 @@
 define(function(require,exports,module){
     var animation = require("./game.js").game.layaClass.Animation;
+    var timer = Laya.timer;
     var Bodies = Matter.Bodies,
         Vertices = Matter.Vertices,
         Vector = Matter.Vector,
-        Body = Matter.Body;
+        Body = Matter.Body,
+        Events = Matter.Events;
     var collisionCategory = require("./game.js").game.collisionCategory;
     
     var vertices = Vertices.fromPath("1 16 6 11 15 12 22 18 32 17 22 6 \
@@ -52,15 +54,43 @@ define(function(require,exports,module){
         
         body._display = Object.create(animation);
         body._display.loadImages(setUrls(type));
-        body._display.interval = 400;
+        body._display.zOrder = 30;
+        
+        body._display.loop = true;
+        body._display.interval = 300;
         body._display.play();
+          
         //body.render.sprite.texture = setUrls(type);
         
         body.collisionFilter.category = collisionCategory.PLAYER;
         body.collisionFilter.mask =  collisionCategory.GROUND | 
                                      collisionCategory.ROCK |
                                      collisionCategory.COLLECTABLE;
-
+        timer.loop(60,module,function(){
+            Body.rotate(body,Math.PI / 90);
+            if (body.angle >= Math.PI / 2 ){
+                body.angle = Math.PI / 2 ;
+            }
+        });
+        body.label = "player";
+        
+        Events.on(body,"collisionStart",function(e){
+            if (!require("./game.js").game.isGameEnd) {
+                if (e.body.label != "star" && e.body.label != "score") {
+                    require("./game.js").game.scrollSpeed = 0;
+                    require("./game.js").game.backgroundSpeed = 0;
+                    if (navigator.vibrate) {
+                        navigator.vibrate(300);
+                    } else if (navigator.webkitVibrate) {
+                        navigator.webkitVibrate(300);
+                    }
+                    require("./game.js").game.isGameEnd = true;
+                }
+                
+            }
+        });
+        
+                                       
         return body;
     }
     

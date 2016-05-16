@@ -20,10 +20,12 @@ define(function(require,exports,module){
             exports.show();
         });
     }
+
     Laya.init(width,height,laya.webgl.WebGL);
     laya.webgl.atlas.AtlasResourceManager.enable();
     Laya.stage.screenMode = SCREEN_HORIZONTAL;
     Laya.stage.scaleMode = SHOW_FULL;
+    Laya.stage.frameRate = "slow";
     var loadingPage = require("./js/loading_page.js");
     loadingPage.show();
     Laya.loader.load(Url,Handler.create(this,onAtlasLoader),
