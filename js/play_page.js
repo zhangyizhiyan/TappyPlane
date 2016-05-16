@@ -14,6 +14,9 @@ define(function(require,exports,module){
     var time = 50;
     var inUse = [];
     var starInUse = [];
+    var level1 = require("./game.js").game.level1,
+        level2 = require("./game.js").game.level2,
+        level3 = require("./game.js").game.level3;
 
     var Pool = laya.utils.Pool;
     var World = Matter.World,
@@ -42,7 +45,7 @@ define(function(require,exports,module){
             }
 
          });
-    var container = engine.render.spriteContainer;      
+    var container = require("./game.js").game.container = engine.render.spriteContainer;      
     var background = (function(){
         var bk1 = Object.create(sprite);
         var bk2 = Object.create(sprite);
@@ -64,6 +67,8 @@ define(function(require,exports,module){
     var scoreUI = require("./score.js").init(10,10);
         
     exports.show = function(){ 
+        var planeType = "blue";
+        var player;
         Laya.stage.addChild(root);     
         engine.world.gravity = {x:0,y:0.6}; 
             
@@ -71,7 +76,17 @@ define(function(require,exports,module){
         container.addChild(scoreUI);     
         runLoop();
         World.add(engine.world,grounds);
-        var player = require("./player.js").init(Laya.stage.width/2,Laya.stage.height/2,"blue",true);
+       
+        if (laya.net.LocalStorage.getItem("bestScore") > 100){
+            planeType = "red";
+        }else if(laya.net.LocalStorage.getItem("bestScore") > 60){
+            planeType = "yellow";
+        }else if(laya.net.LocalStorage.getItem("bestScore") > 20){
+             planeType = "green";
+        }
+         
+         
+        player = require("./player.js").init(Laya.stage.width/2,Laya.stage.height/2,planeType,true);
         World.add(engine.world,player);     
         
         Laya.stage.on("speedChange", this, function () {
@@ -105,7 +120,7 @@ define(function(require,exports,module){
             player._isUp = false;
         });
 
-
+        laya.media.SoundManager.playMusic("res/sound/theme.mp3");
         Engine.run(engine);
     };
     exports.clear = function() {
@@ -114,23 +129,31 @@ define(function(require,exports,module){
         Laya.stage.removeChildren();
         Laya.stage.offAll("mousedown");
         Laya.stage.offAll("speedChange");
+        Laya.stage.offAll("mouseup");
         inUse = null;
         starInUse = null;
+        laya.media.SoundManager.stopMusic();
     };
     
-    function runLoop(){
-
-
+    function runLoop() {
         setup();
         gameLoop();
-        collisionEvents();        
-        
+        collisionEvents();
+
         
         
         function setup() {
-            createRocks();
+            var rockType = "rock";
+            if (laya.net.LocalStorage.getItem("bestScore") > level3) {
+                rockType = "rockIce";
+            } else if (laya.net.LocalStorage.getItem("bestScore") > level2) {
+                rockType = "rockSnow";
+            } else if (laya.net.LocalStorage.getItem("bestScore") > level1) {
+                rockType = "rockGrass";
+            }
+            createRocks(rockType);
             timer.loop(rockTime, module, function () {
-                createRocks();
+                createRocks(rockType);
                 createStar();
             });
         }
@@ -168,9 +191,10 @@ define(function(require,exports,module){
         }
         
 
-        function createRocks() {
-            var rs = Pool.getItemByCreateFun("rock", function () {
-                return rocks.createRocks("rock", true);
+        function createRocks(rockType) {
+
+            var rs = Pool.getItemByCreateFun(rockType, function () {
+                return rocks.createRocks(rockType, true);
             });
             for (var i = 0, len = rs.bodies.length; i < len; i++) {
                 Body.setPosition(rs.bodies[i], Vector.add(rs.bodies[i]._pos,
@@ -191,12 +215,12 @@ define(function(require,exports,module){
             }else if( i == 1 || i == 4){
                 type = "silver";
             }
-            if (type !== undefined){
+            if (type != undefined){
                 star = Pool.getItemByCreateFun(type, function () {
                     return Star.init(x,y,type,true);
                  });
                 Body.setPosition(star,Vector.create(x,y));                                 
-                World.add(engine.world, star);
+                World.addBody(engine.world, star);
                 starInUse.push(star);
             }         
         }

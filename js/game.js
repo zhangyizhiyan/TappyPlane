@@ -33,6 +33,10 @@ define(function(require,exports,module){
           Laya.stage.event("scoreChange");
       },
       backgroundSpeed:1,
-      isGameEnd:false 
+      isGameEnd:false,
+      container:null,
+      level1:20,
+      level2:60,
+      level3:100
     };
 });

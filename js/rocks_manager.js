@@ -65,6 +65,9 @@ define(function(require,exports,module){
                if(!require("./game.js").game.isGameEnd &&!body._isCollision){
                    if(e.body.label == "player"){
                        require("./game.js").game.score += body._score;
+                       var effect = require("./effect.js").init(e.body.position.x,e.body.position.y,body._score);
+                       require("./game.js").game.container.addChild(effect);
+                       
                    }                  
                    body._isCollision = true;
                    

@@ -13,8 +13,16 @@ define(function(require,exports,module){
     var scrollSpeed = Math.floor(time * require("./game.js").game.scrollSpeed / 1000);
         
     exports.init = function(){
-        g1 = Ground.init(0, groundY, "dirt", true);
-        g2 = Ground.init(Laya.stage.width, groundY, "dirt", true);
+        var groundType = "dirt";
+        if(laya.net.LocalStorage.getItem("bestScore") > require("./game.js").game.level3){
+            groundType = "ice";
+        }else if(laya.net.LocalStorage.getItem("bestScore") > require("./game.js").game.level2){
+            groundType = "snow";
+        }else if(laya.net.LocalStorage.getItem("bestScore") > require("./game.js").game.level1){
+            groundType = "grass";
+        }               
+        g1 = Ground.init(0, groundY, groundType, true);
+        g2 = Ground.init(Laya.stage.width, groundY, groundType, true);
         
         var position = {x:g2.position.x,y:g2.position.y};
         var endPos = -Laya.stage.width + g1._offset.x;

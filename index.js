@@ -5,7 +5,11 @@ define(function(require,exports,module){
     var Handler = laya.utils.Handler;
     var Loader = laya.net.Loader;
     var Url = [{url:"res/img/TappyPlane.json",type:Loader.ATLAS},
-                {url:"res/img/UI.json",type:Loader.ATLAS}];
+                {url:"res/img/UI.json",type:Loader.ATLAS},
+                {url:"res/sound/theme.mp3",type:Loader.SOUND},
+                {url:"res/sound/boom.mp3",type:Loader.SOUND},
+                {url:"res/sound/fly.mp3",type:Loader.SOUND},
+                {url:"res/sound/score.mp3",type:Loader.SOUND}];
    
     var width = 800;
     var height = 480;

@@ -216,6 +216,8 @@ var LayaRender = {};
             //隐藏图片
             if(sp){sp.visible = false}
             return;
+        }else{
+            if(sp){sp.visible = true}
         }
 
        

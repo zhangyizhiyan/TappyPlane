@@ -85,11 +85,14 @@ define(function(require,exports,module){
                         navigator.webkitVibrate(300);
                     }
                     require("./game.js").game.isGameEnd = true;
+                    laya.media.SoundManager.stopSound("res/sound/fly.mp3");
+                    laya.media.SoundManager.playSound("res/sound/boom.mp3",1);
                 }
                 
             }
         });
         
+        laya.media.SoundManager.playSound("res/sound/fly.mp3",0);
                                        
         return body;
     }

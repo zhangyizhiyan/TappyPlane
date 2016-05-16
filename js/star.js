@@ -72,6 +72,9 @@ define(function(require,exports,module){
                     if (e.body.label == "player"){
                         require("./game.js").game.score += score[body._type];
                         body.render.visible = false;
+                        var effect = require("./effect.js").init(e.body.position.x,
+                                                              e.body.position.y,score[body._type]);
+                        require("./game.js").game.container.addChild(effect);                                    
                     }   
                     body._iscollision = true;
                 }
