@@ -28,47 +28,57 @@ define(function(require,exports,module){
         Vector = Matter.Vector,
         Common = Matter.Common,
         Pair = Matter.Pair;
-    var scrollSpeed = Math.floor(time * require("./game.js").game.scrollSpeed / 1000);
-    var scrollVector = Vector.create(scrollSpeed, 0);
-
-    var root = Object.create(sprite);
-    var engine = Engine.create({
-            enableSleeping:false,
-            render:{
-                container:root,
-                controller:LayaRender,
-                options:{
-                    width:Laya.stage.width,
-                    height:Laya.stage.height,
-                    wireframes:false
+    var engine ,scrollVector,scrollSpeed;
+      
+    exports.show = function () {
+        var root = Object.create(sprite);
+        engine = Engine.create({
+            enableSleeping: false,
+            render: {
+                container: root,
+                controller: LayaRender,
+                options: {
+                    width: Laya.stage.width,
+                    height: Laya.stage.height,
+                    wireframes: false
                 }
             }
 
-         });
-    var container = require("./game.js").game.container = engine.render.spriteContainer;      
-    var background = (function(){
-        var bk1 = Object.create(sprite);
-        var bk2 = Object.create(sprite);
-        bk1.loadImage("TappyPlane/background.png",0,0);
-        bk2.loadImage("TappyPlane/background.png",Laya.stage.width,0);
-        background = Object.create(sprite);
-        background.addChild(bk2);
-        background.addChild(bk1);
-        
-        timer.loop(60,module,function(){
-            if (background.x <= -Laya.stage.width){
-                background.x = 0;
-            }
-            background.x -= require("./game.js").game.backgroundSpeed;
-        });      
-        return background;
-    })();
-    var grounds = groundManager.init();
-    var scoreUI = require("./score.js").init(10,10);
-        
-    exports.show = function(){ 
+        });
+        var container = require("./game.js").game.container = engine.render.spriteContainer;
+        var background = (function () {
+            var bk1 = Object.create(sprite);
+            var bk2 = Object.create(sprite);
+            bk1.loadImage("TappyPlane/background.png", 0, 0);
+            bk2.loadImage("TappyPlane/background.png", Laya.stage.width, 0);
+            background = Object.create(sprite);
+            background.addChild(bk2);
+            background.addChild(bk1);
+
+            timer.loop(60, module, function () {
+                if (background.x <= -Laya.stage.width) {
+                    background.x = 0;
+                }
+                background.x -= require("./game.js").game.backgroundSpeed;
+            });
+            return background;
+        })();
+        var grounds = groundManager.init();
+        var scoreUI = require("./score.js").init(10, 10);
         var planeType = "blue";
         var player;
+
+        if (require("./game.js").game.isReset) {
+            require("./game.js").game.score = 0;
+            require("./game.js").game.scrollSpeed = 40;
+            require("./game.js").game.backgroundSpeed = 1;
+            require("./game.js").game.isGameEnd = false;
+            
+        }
+        scrollSpeed = Math.floor(time * require("./game.js").game.scrollSpeed / 1000);
+        scrollVector= Vector.create(scrollSpeed, 0);
+
+        
         Laya.stage.addChild(root);     
         engine.world.gravity = {x:0,y:0.6}; 
             
@@ -125,14 +135,20 @@ define(function(require,exports,module){
     };
     exports.clear = function() {
         timer.clearAll(module);
+        World.clear(engine.world);
         Engine.clear(engine);
         Laya.stage.removeChildren();
         Laya.stage.offAll("mousedown");
         Laya.stage.offAll("speedChange");
         Laya.stage.offAll("mouseup");
-        inUse = null;
-        starInUse = null;
+        inUse = [];
+        starInUse = [];
         laya.media.SoundManager.stopMusic();
+        
+        require.async("./end_page.js",function(exports){
+           exports.show(); 
+        }); 
+        
     };
     
     function runLoop() {
@@ -192,7 +208,6 @@ define(function(require,exports,module){
         
 
         function createRocks(rockType) {
-
             var rs = Pool.getItemByCreateFun(rockType, function () {
                 return rocks.createRocks(rockType, true);
             });

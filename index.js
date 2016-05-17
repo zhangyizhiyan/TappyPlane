@@ -34,5 +34,5 @@ define(function(require,exports,module){
     loadingPage.show();
     Laya.loader.load(Url,Handler.create(this,onAtlasLoader),
           Handler.create(loadingPage,loadingPage.progress,[],false));
-    laya.utils.Stat.show(0,0);
+    //laya.utils.Stat.show(0,0);
 });

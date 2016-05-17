@@ -37,6 +37,7 @@ define(function(require,exports,module){
       container:null,
       level1:20,
       level2:60,
-      level3:100
+      level3:100,
+      isReset:false
     };
 });

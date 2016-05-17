@@ -7,6 +7,7 @@ define(function(require,exports,module){
         Body = Matter.Body,
         Events = Matter.Events;
     var collisionCategory = require("./game.js").game.collisionCategory;
+    var flySound;
     
     var vertices = Vertices.fromPath("1 16 6 11 15 12 22 18 32 17 22 6 \
     26 1 69 1 74 7 69 13 77 28 81 17 85 18 85 64 81 66 78 64 69 63 \
@@ -85,14 +86,21 @@ define(function(require,exports,module){
                         navigator.webkitVibrate(300);
                     }
                     require("./game.js").game.isGameEnd = true;
-                    laya.media.SoundManager.stopSound("res/sound/fly.mp3");
+                    //laya.media.SoundManager.stopSound("res/sound/fly.mp3");
+                    //laya.media.SoundManager.destroySound("res/sound/fly.mp3");
+                    flySound.stop();
                     laya.media.SoundManager.playSound("res/sound/boom.mp3",1);
+                    timer.once(1000,module,function(){
+                       require.async("./play_page.js",function(exports){
+                           exports.clear();
+                       }) 
+                    });
                 }
                 
             }
         });
         
-        laya.media.SoundManager.playSound("res/sound/fly.mp3",0);
+         flySound = laya.media.SoundManager.playSound("res/sound/fly.mp3",0);
                                        
         return body;
     }

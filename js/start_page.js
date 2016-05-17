@@ -132,7 +132,7 @@ define(function(require,exports,module){
                 root.filters = [grayscaleFilter];
             }
             require.async("./play_page.js",function(exports){
-                 timer.once(500,module,function(){
+                 timer.once(500,module,function(){ 
                       exports.show();
                       clear();
                  });
