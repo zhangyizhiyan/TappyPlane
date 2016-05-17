@@ -14,11 +14,9 @@ define(function(require,exports,module){
         this.lab_bestScore.text = "最佳得分:"+ bestScore;
         
         if (score > require("./game.js").game.level3){
-            this.plane.graphics.clear();
-            this.plane.loadImage("UI/medalGold.png");
+            this.plane.skin = "UI/medalGold.png";
         }else if (score > require("./game.js").game.level2){
-            this.plane.graphics.clear();
-            this.plane.loadImage("UI/medalSilver.png");
+            this.plane.skin = "UI/medalSilver.png";
         }            
         this.btn_restart.on(Event.CLICK, this, onBtnClick);
   

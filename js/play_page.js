@@ -87,11 +87,11 @@ define(function(require,exports,module){
         runLoop();
         World.add(engine.world,grounds);
        
-        if (laya.net.LocalStorage.getItem("bestScore") > 100){
+        if (laya.net.LocalStorage.getItem("bestScore") > level3){
             planeType = "red";
-        }else if(laya.net.LocalStorage.getItem("bestScore") > 60){
+        }else if(laya.net.LocalStorage.getItem("bestScore") > level2){
             planeType = "yellow";
-        }else if(laya.net.LocalStorage.getItem("bestScore") > 20){
+        }else if(laya.net.LocalStorage.getItem("bestScore") > level1){
              planeType = "green";
         }
          
