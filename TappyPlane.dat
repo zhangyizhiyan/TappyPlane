@@ -1,0 +1,19 @@
+CACHE MANIFEST
+
+CACHE:
+./res/sound/fly.mp3
+./res/sound/theme.mp3
+./res/sound/boom.mp3
+./res/sound/score.mp3
+./res/img/banner.png
+./res/img/progressBar.png
+./res/img/progressBar$bar.png
+./res/img/TappyPlane.json
+./res/img/TappyPlane.png
+./res/img/UI.json
+./res/img/UI.png
+./res/data/rockteam.json
+#./static/js/073ad381d62936498b5961d57e32b2ab.js
+
+NETWORK:
+*
